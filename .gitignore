@@ -1,0 +1,22 @@
+# Virtual Environment
+store_venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+# Visual Studio Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Sublime Text
+.sublime-workspace
+.sublime-project
+
+# macOS
+.DS_Store
