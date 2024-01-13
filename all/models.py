@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.gis.geos import Point
 
 
 class Post(models.Model):
@@ -17,6 +18,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     address = models.CharField(max_length=255, verbose_name="Адреса об'єкта")
+    latitude = models.DecimalField(max_digits=10, decimal_places=6, verbose_name="Широта в градусах")
+    longitude = models.DecimalField(max_digits=10, decimal_places=6, verbose_name="Довгота в градусах")
     relax = models.CharField(max_length=300, choices = CHOICES)
     is_highlighted = models.BooleanField(default=False)
     highlighted_until = models.DateTimeField(null=True, blank=True)
@@ -55,9 +58,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-    class Meta:
-        verbose_name = "Місце знаходження"
-        verbose_name_plural = "Місця знаходження"
     
     
-    
+
+    def get_coordinates(self):
+        return Point(self.latitude, self.longitude)
