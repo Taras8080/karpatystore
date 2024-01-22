@@ -8,8 +8,10 @@ from core.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
+   # path('post/<slug:post_slug>/', show_post, name="show_post"),
 
-     path("__reload__/", include("django_browser_reload.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
+     
 ]
 
 if settings.DEBUG:

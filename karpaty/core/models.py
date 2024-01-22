@@ -4,15 +4,14 @@ from django.utils import timezone
 
 class Post(models.Model):
     CHOICES = (
-        ('parking', 'Парковка'),
-        ('mangal', 'Мангал'),
-        ('sauna', 'Сауна'),
-        ('tenis', 'Теніс'),
-        ('WI-FI', 'WI-FI'),
+        ('Hotel', 'Готель'),
+        ('Private', 'Приватний сектор'),
+        
     )
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, verbose_name="Слаг")
+    slug = models.SlugField(max_length=255, unique=True, verbose_name="Слаг", db_index=True)
     description = models.TextField(blank=False, null=False)
+    price = models. DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     image = models.ImageField(upload_to="photos")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -20,6 +19,7 @@ class Post(models.Model):
     relax = models.CharField(max_length=300, choices = CHOICES)
     is_highlighted = models.BooleanField(default=False)
     highlighted_until = models.DateTimeField(null=True, blank=True)
+    is_published = models.BooleanField(default=False)
 
 
     def get_highlighted_html(self):
@@ -61,3 +61,15 @@ class Post(models.Model):
     
     
     
+class Categories(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Назва категорії", unique=True)
+    slug = models.SlugField(max_length=255, unique=True, verbose_name="Url", null=True)
+
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        db_table = "categories"
+        verbose_name = "Категорія"
+        verbose_name_plural = "Категорії"

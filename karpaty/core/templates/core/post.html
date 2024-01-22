@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Карпати - Головна{% endblock %}
+
+{% block content %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+    {% for hotel in hotels %}
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <img src="{{ hotel.photo.url }}" alt="{{ hotel.name }}" class="w-full h-32 object-cover mb-4 rounded-md">
+        <h2 class="text-xl font-bold">{{ hotel.name }}</h2>
+        <p class="text-gray-600">{{ hotel.description }}</p>
+        <p class="text-gray-700 font-bold mt-2">Ціна: {{ hotel.price }} грн/ніч</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    {% tailwind_css %}
+
+
+    <title>Список готелів</title>
+</head>
+<body>
+    <header class="bg-gray-800 text-white">
+        <div class="container mx-auto flex justify-between py-6">
+          <a href="/" class="text-3xl font-bold">Karpaty-store</a>
+          <ul class="flex items-center">
+            <li>
+              <a href="/about" class="text-white hover:text-gray-400">Подати оголошення</a>
+            </li>
+            <li>
+              <a href="/contact" class="text-white hover:text-gray-400">Реєстрація</a>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+    
+    
+
+      <h1>Список готелів де можна відпочити в Карпатах</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="/hotels/{{ hotel.slug }}">{{ hotel.name }}</a>
+                <p>{{ post.title }}</p>
+                <p>{{ post.description }}</p>
+                <p>{{ post.created_at}}</p>
+                <p></p>
+                <img src="{{ post.image.url }}" width="200">
+            </li>
+        <br><tr>
+        {% endfor %}
+    </ul>
+
+    <div> 
+      <h1>  Hello</h1>
+      <ul>
+        {% for cat in categories %} 
+        <p>Категорія : {{cat.name}} </p>
+        {% endfor %}
+      </ul>
+    </div>
+</body>
+</html>
