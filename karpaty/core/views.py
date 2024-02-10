@@ -20,3 +20,11 @@ def categorie(request):
 
 
 
+
+# def show_post(request, post_slug):
+#	post = get_object_or_404(Post, slug=post_slug)
+#	data = {
+##		'title' : post.title,
+#'post' : post,
+ #   }
+#	return render(request, 'core/post.html', data)
